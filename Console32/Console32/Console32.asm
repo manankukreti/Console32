@@ -31,6 +31,7 @@ Substring PROC,
 	PUSH EAX
 	PUSH ECX
 	PUSH ESI
+	PUSH EDI
 
 	INVOKE StringLength, string
 	MOV ECX, EAX
@@ -48,7 +49,7 @@ Substring PROC,
 	ADD ESI, sIndex
 	REP MOVSB
 
-	
+	POP EDI
 	POP ESI
 	POP ECX
 	POP EAX
@@ -56,6 +57,45 @@ error:
 	MOV EDX, OFFSET substringBuffer
 	RET
 Substring ENDP
+
+;---------------------------------------------
+SubstringFromTo PROC,
+	string:PTR BYTE,
+	from:DWORD,
+	to:DWORD
+;Returns a substring os source from index
+;"from" to index "to" in EDX
+;---------------------------------------------
+	PUSH EAX
+	PUSH ECX
+	PUSH ESI
+	PUSH EDI
+
+	INVOKE StringLength, string
+	MOV ECX, EAX
+	SUB ECX, from
+	CMP from, EAX
+	JNL error
+	CMP to, EAX
+	JNL error
+
+	MOV ESI, string
+	MOV EDI, OFFSET substringBuffer
+	MOV ECX, to
+	SUB ECX, from
+	CLD
+	ADD ESI, from
+	DEC ECX
+	REP MOVSB
+
+	POP EDI
+	POP ESI
+	POP ECX
+	POP EAX
+error:
+	MOV EDX, OFFSET substringBuffer
+	RET
+SubstringFromTo ENDP
 
 
 ;============================================
