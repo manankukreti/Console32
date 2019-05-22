@@ -1,4 +1,5 @@
 TITLE Console32 Assembly Library Source Code
+INCLUDE Console32.inc
 
 .data
 BUFFERSIZE = 200
@@ -7,6 +8,29 @@ index DWORD 0
 counter DWORD 0
 
 .code
+Name1 PROC
+
+Name1 ENDP
+
+;---------------------------------------------------------
+StringLength PROC USES edi,		;Str_Length
+	pString:PTR BYTE	; pointer to string
+;
+; Return the length of a null-terminated string.
+; Receives: pString - pointer to a string
+; Returns: EAX = string length
+;---------------------------------------------------------
+	mov edi,pString
+	mov eax,0     	                ; character count
+L1:
+	cmp BYTE PTR [edi],0	      ; end of string?
+	je  L2	                     ; yes: quit
+	inc edi	                     ; no: point to next
+	inc eax	                     ; add 1 to count
+	jmp L1
+L2: ret
+StringLength ENDP
+
 ;============================================
 ;The following proceedures are those that
 ;I have created. These are the library
@@ -91,7 +115,7 @@ SubstringFromTo ENDP
 ;----------------------------------------
 CharacterAt PROC,
 	string:PTR BYTE,
-	index:DWORD
+	cindex:DWORD
 ;Return the character at the given index
 ;in the string in AL, or 0 if index is
 ;invalid
@@ -100,11 +124,11 @@ CharacterAt PROC,
 	PUSH ESI
 
 	INVOKE StringLength, string
-	CMP index, EAX
+	CMP cindex, EAX
 	JNL error
 
 	MOV ESI, string
-	ADD ESI, index
+	ADD ESI, cindex
 	MOV EAX, 0
 	MOV AL, [ESI]
 	JMP return
@@ -239,31 +263,4 @@ endL:
 	POP EBX
 	RET
 NthIndexOf ENDP
-
-;============================================
-;The following proceedures are copied from
-;Kip Irvine's Irvine32 library. The sole
-;purpose of these proceedures is to eliminate
-;dependencies. These procedures are not to be
-;used except by my proceedures.
-;============================================
-
-;---------------------------------------------------------
-StringLength PROC USES edi,		;Str_Length
-	pString:PTR BYTE	; pointer to string
-;
-; Return the length of a null-terminated string.
-; Receives: pString - pointer to a string
-; Returns: EAX = string length
-;---------------------------------------------------------
-	mov edi,pString
-	mov eax,0     	                ; character count
-L1:
-	cmp BYTE PTR [edi],0	      ; end of string?
-	je  L2	                     ; yes: quit
-	inc edi	                     ; no: point to next
-	inc eax	                     ; add 1 to count
-	jmp L1
-L2: ret
-StringLength ENDP
-
+END Name1

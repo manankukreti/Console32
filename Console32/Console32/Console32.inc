@@ -1,3 +1,6 @@
+.MODEL FLAT, STDCALL
+.STACK
+
 Substring PROTO,
 	string:PTR BYTE,
 	index:DWORD
@@ -23,3 +26,6 @@ NthIndexOf PROTO,
 	string:PTR BYTE,
 	char:BYTE,
 	n:DWORD
+
+StringLength PROTO,
+	pString:PTR BYTE
