@@ -18,6 +18,9 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <MASM Include="libtest.asm" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{5E7FE52D-6FB2-420E-AA03-7AEC4458BF1C}</ProjectGuid>
@@ -80,7 +83,12 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>C:/Irvine</AdditionalLibraryDirectories>
+      <AdditionalDependencies>irvine32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <MASM>
+      <IncludePaths>C:/Irvine</IncludePaths>
+    </MASM>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -118,17 +126,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <MASM Include="Console32.asm" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="D:\Microsoft Assembler\MASMLib\Console32\floatio.inc" />
-    <None Include="D:\Microsoft Assembler\MASMLib\Console32\GraphWin.inc" />
-    <None Include="D:\Microsoft Assembler\MASMLib\Console32\Irvine32.inc" />
-    <None Include="D:\Microsoft Assembler\MASMLib\Console32\Macros.inc" />
-    <None Include="D:\Microsoft Assembler\MASMLib\Console32\SmallWin.inc" />
-    <None Include="D:\Microsoft Assembler\MASMLib\Console32\VirtualKeys.inc" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
