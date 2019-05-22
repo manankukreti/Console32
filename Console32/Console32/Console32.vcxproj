@@ -121,6 +121,14 @@
   <ItemGroup>
     <MASM Include="Console32.asm" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="D:\Microsoft Assembler\MASMLib\Console32\floatio.inc" />
+    <None Include="D:\Microsoft Assembler\MASMLib\Console32\GraphWin.inc" />
+    <None Include="D:\Microsoft Assembler\MASMLib\Console32\Irvine32.inc" />
+    <None Include="D:\Microsoft Assembler\MASMLib\Console32\Macros.inc" />
+    <None Include="D:\Microsoft Assembler\MASMLib\Console32\SmallWin.inc" />
+    <None Include="D:\Microsoft Assembler\MASMLib\Console32\VirtualKeys.inc" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />

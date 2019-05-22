@@ -19,4 +19,24 @@
       <Filter>Source Files</Filter>
     </MASM>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="D:\Microsoft Assembler\MASMLib\Console32\SmallWin.inc">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="D:\Microsoft Assembler\MASMLib\Console32\VirtualKeys.inc">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="D:\Microsoft Assembler\MASMLib\Console32\floatio.inc">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="D:\Microsoft Assembler\MASMLib\Console32\GraphWin.inc">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="D:\Microsoft Assembler\MASMLib\Console32\Irvine32.inc">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="D:\Microsoft Assembler\MASMLib\Console32\Macros.inc">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>
