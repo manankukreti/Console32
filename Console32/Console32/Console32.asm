@@ -3,6 +3,7 @@ TITLE Console32 Assembly Library Source Code
 .data
 BUFFERSIZE = 200
 substringBuffer BYTE BUFFERSIZE DUP(0),0
+index DWORD 0;
 
 .code
 ;============================================
@@ -104,6 +105,7 @@ CharacterAt PROC,
 	MOV EAX, 0
 	MOV AL, [ESI]
 	JMP return
+	LOOP
 
 error:
 	MOV AL, 0
@@ -111,6 +113,35 @@ error:
 return:
 	RET
 CharacterAt ENDP
+
+;------------------------------------------------
+IndexOf PROC,
+	string:PTR BYTE,
+	char:BYTE
+;Return the index of a character in the
+;string, or -1 if the string does not
+;contain it.
+;-----------------------------------------------
+	
+	INVOKE StringLength, string
+	MOV ECX, EAX
+	MOV ESI, string
+	 
+L1:
+	MOV AL, [ESI]
+	CMP AL, char
+	JE returngood
+	INC index
+	INC ESI
+	LOOP L1
+	MOV EAX, -1
+	JMP return
+returngood:
+	MOV EAX, index
+return:
+	RET
+
+IndexOf ENDP
 
 
 ;============================================
@@ -139,3 +170,4 @@ L1:
 	jmp L1
 L2: ret
 StringLength ENDP
+
