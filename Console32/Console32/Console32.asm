@@ -11,7 +11,11 @@ counter DWORD 0
 Name1 PROC
 
 Name1 ENDP
-
+;=========================================================
+;This procedure was copied from Kip Irvine's Irvine32
+;library. It is not oficially part of the Console32 
+;library. It is only here to eliminate dependencies.
+;=========================================================
 ;---------------------------------------------------------
 StringLength PROC USES edi,		;Str_Length
 	pString:PTR BYTE	; pointer to string
