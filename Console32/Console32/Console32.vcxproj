@@ -21,6 +21,9 @@
   <ItemGroup>
     <MASM Include="libtest.asm" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Console32.inc" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{5E7FE52D-6FB2-420E-AA03-7AEC4458BF1C}</ProjectGuid>
