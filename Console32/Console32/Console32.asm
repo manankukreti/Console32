@@ -3,7 +3,8 @@ TITLE Console32 Assembly Library Source Code
 .data
 BUFFERSIZE = 200
 substringBuffer BYTE BUFFERSIZE DUP(0),0
-index DWORD 0;
+index DWORD 0
+counter DWORD 0
 
 .code
 ;============================================
@@ -187,6 +188,57 @@ continue:
 	POP EBX
 	RET
 LastIndexOf ENDP
+
+;------------------------------------------
+NthIndexOf PROC,
+	string:PTR BYTE,
+	char:BYTE,
+	n:DWORD
+;returns the nth index of a characer in a
+;string, the n-1th index if the nth doesn't
+;exist, or -1 if the character isn't in the
+;string
+;------------------------------------------
+
+	PUSH EBX
+	PUSH ECX
+	PUSH EDX
+	PUSH ESI
+	PUSH EDI
+
+	MOV counter, 0
+	MOV EDI, n
+	MOV index, -1
+	INVOKE StringLength, string
+	MOV ECX, EAX
+	MOV EDX, EAX
+	MOV ESI, string
+	 
+L1:
+	MOV AL, [ESI]
+	CMP AL, char
+	JE change
+	JMP continue
+change:
+MOV EBX, EDX
+SUB EBX, ECX
+	MOV index, EBX
+	INC counter
+	CMP counter, EDI
+	JE endL
+continue:
+	INC ESI
+	LOOP L1
+endL:
+	MOV EAX, index
+
+	POP EDI
+	POP ESI
+	POP EDX
+	POP ECX
+	POP EBX
+	RET
+NthIndexOf ENDP
 
 ;============================================
 ;The following proceedures are copied from
