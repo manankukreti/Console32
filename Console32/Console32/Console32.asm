@@ -86,6 +86,32 @@ error:
 	RET
 SubstringFromTo ENDP
 
+;----------------------------------------
+CharacterAt PROC,
+	string:PTR BYTE,
+	index:DWORD
+;Return the character at the given index
+;in the string in AL, or 0 if index is
+;invalid
+;---------------------------------------
+
+	INVOKE StringLength, string
+	CMP index, EAX
+	JNL error
+
+	MOV ESI, string
+	ADD ESI, index
+	MOV EAX, 0
+	MOV AL, [ESI]
+	JMP return
+
+error:
+	MOV AL, 0
+
+return:
+	RET
+CharacterAt ENDP
+
 
 ;============================================
 ;The following proceedures are copied from
