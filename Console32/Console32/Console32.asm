@@ -96,6 +96,8 @@ CharacterAt PROC,
 ;invalid
 ;---------------------------------------
 
+	PUSH ESI
+
 	INVOKE StringLength, string
 	CMP index, EAX
 	JNL error
@@ -105,12 +107,12 @@ CharacterAt PROC,
 	MOV EAX, 0
 	MOV AL, [ESI]
 	JMP return
-	LOOP
 
 error:
 	MOV AL, 0
 
 return:
+	POP ESI
 	RET
 CharacterAt ENDP
 
@@ -122,7 +124,9 @@ IndexOf PROC,
 ;string, or -1 if the string does not
 ;contain it.
 ;-----------------------------------------------
-	
+	PUSH ECX
+	PUSH ESI
+
 	INVOKE StringLength, string
 	MOV ECX, EAX
 	MOV ESI, string
@@ -139,10 +143,50 @@ L1:
 returngood:
 	MOV EAX, index
 return:
+	POP ESI
+	POP ECX
 	RET
 
 IndexOf ENDP
 
+;----------------------------------------------
+LastIndexOf PROC,
+	string:PTR BYTE,
+	char:BYTE
+;Returns the last index of a character in a
+;string or -1 if it doesn't exist
+;------------------------------------------------
+	PUSH EBX
+	PUSH ECX
+	PUSH EDX
+	PUSH EDI
+
+MOV index, -1
+	INVOKE StringLength, string
+	MOV ECX, EAX
+	MOV EDX, EAX
+	MOV ESI, string
+	 
+L1:
+	MOV AL, [ESI]
+	CMP AL, char
+	JE change
+	JMP continue
+change:
+MOV EBX, EDX
+SUB EBX, ECX
+	MOV index, EBX
+continue:
+	INC ESI
+	LOOP L1
+	MOV EAX, index
+
+	POP EDI
+	POP EDX
+	POP ECX
+	POP EBX
+	RET
+LastIndexOf ENDP
 
 ;============================================
 ;The following proceedures are copied from
