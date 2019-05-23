@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Console32/.vs/Console32/v15
+/.vs
+/Console32/Console32/libtest.asm
+/Console32/Console32/Debug/libtest.obj
