@@ -259,6 +259,7 @@ StringBuilderInsertAt PROC,
 	index:DWORD
 ;inserts a string into a stringbuilder at index i
 ;--------------------------------------------
+	PUSHAD
 
 	INVOKE StringLength, string
 	MOV EBX, EAX
@@ -308,8 +309,22 @@ insert:
 	REP MOVSB
 
 return:
+	POPAD
 	RET
 StringBuilderInsertAt ENDP
+
+;------------------------------------------------------
+StringBuilderAppend PROC,
+	string:PTR BYTE
+;Appends a string to the end of a string builder
+;-----------------------------------------------------
+
+	PUSH EAX
+	INVOKE StringLength, OFFSET stringBuilderBuffer
+	INVOKE StringBuilderInsertAt, string, EAX
+	POP EAX
+	RET
+StringBuilderAppend ENDP
 
 ;------------------------------------------
 GetStringBuilder PROC
