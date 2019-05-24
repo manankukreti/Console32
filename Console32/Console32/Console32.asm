@@ -256,7 +256,7 @@ NthIndexOf ENDP
 ;--------------------------------------------
 StringBuilderInsertAt PROC,
 	string:PTR BYTE,
-	index:DWORD
+	i:DWORD
 ;inserts a string into a stringbuilder at index i
 ;--------------------------------------------
 	PUSHAD
@@ -281,7 +281,7 @@ insert:
 	
 	MOV ESI, OFFSET stringBuilderBuffer
 	MOV EDI, OFFSET tempBuffer
-	MOV ECX, index
+	MOV ECX, i
 	REP MOVSB
 
 	MOV ESI, string
@@ -290,11 +290,11 @@ insert:
 
 	MOV ESI, OFFSET stringBuilderBuffer
 	MOV EDI, OFFSET tempBuffer
-	ADD ESI, index
-	ADD EDI, index
+	ADD ESI, i
+	ADD EDI, i
 	ADD EDI, EBX
 	MOV ECX, BUFFERSIZE
-	SUB ECX, index
+	SUB ECX, i
 	SUB ECX, EBX
 	REP MOVSB
 
@@ -385,11 +385,11 @@ StringBuilderDelete ENDP
 
 ;--------------------------------------------------
 StringBuilderDeleteCharAt PROC,
-	index:DWORD
+	i:DWORD
 ;Removes a given character from the stringbuilder-
 ;--------------------------------------------------
 	PUSHAD
-	MOV EAX, index
+	MOV EAX, i
 	MOV EBX, EAX
 	INC EBX
 	INVOKE StringBuilderDelete, EAX, EBX
@@ -446,7 +446,7 @@ GetStringBuilder PROC
 ;------------------------------------------
 	MOV EDX, OFFSET stringBuilderBuffer
 	RET
-GetSringBuilder ENDP
+GetStringBuilder ENDP
 
 
 
