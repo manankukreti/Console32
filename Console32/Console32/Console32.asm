@@ -326,6 +326,61 @@ StringBuilderAppend PROC,
 	RET
 StringBuilderAppend ENDP
 
+
+StringBuilderDelete PROC,
+	start:DWORD,
+	endI: DWORD
+	
+	PUSHAD
+	PUSHFD
+
+	INVOKE StringLength, OFFSET StringBuilderBuffer
+
+	CLD
+
+	MOV ESI, OFFSET stringBuilderBuffer
+	MOV EDI, OFFSET tempBuffer
+	
+	CMP start, 0
+	JE fix
+
+	MOV ECX, start
+	REP MOVSB
+
+	ADD ESI, endI
+	SUB ESI, start
+	MOV ECX, EAX
+	SUB ECX, endI
+	REP MOVSB
+	
+	JMP return
+fix:
+	ADD ESI, endI
+	MOV ECX, EAX
+	SUB ECX, endI
+	REP MOVSB
+return:
+	MOV ESI, OFFSET emptyBuffer
+	MOV EDI, OFFSET stringBuilderBuffer
+	MOV ECX, BUFFERSIZE
+	REP MOVSB
+
+	MOV ESI, OFFSET tempBuffer
+	MOV EDI, OFFSET stringBuilderBuffer
+	MOV ECX, BUFFERSIZE
+	REP MOVSB
+
+	MOV ESI, OFFSET emptyBuffer
+	MOV EDI, OFFSET tempBuffer
+	MOV ECX, BUFFERSIZE
+	REP MOVSB
+	POPFD
+	POPAD
+
+	RET
+StringBuilderDelete ENDP
+
+
 ;------------------------------------------
 GetStringBuilder PROC
 ;Returns the address of the string in EDX

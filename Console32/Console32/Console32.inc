@@ -31,6 +31,10 @@ StringBuilderInsertAt PROTO,
 	string:PTR BYTE,
 	index:DWORD
 
+StringBuilderDelete PROTO,
+	start:DWORD, 
+	endI:DWORD
+
 
 StringBuilderAppend PROTO, 
 	string:PTR BYTE
