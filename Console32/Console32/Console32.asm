@@ -326,11 +326,14 @@ StringBuilderAppend PROC,
 	RET
 StringBuilderAppend ENDP
 
-
+;-----------------------------------------------------
 StringBuilderDelete PROC,
 	start:DWORD,
 	endI: DWORD
-	
+;deletes all characters starting from index "start" and
+;ending on index "endI"
+;--------------------------------------------------------
+
 	PUSHAD
 	PUSHFD
 
@@ -379,6 +382,21 @@ return:
 
 	RET
 StringBuilderDelete ENDP
+
+;--------------------------------------------------
+StringBuilderDeleteCharAt PROC,
+	index:DWORD
+;Removes a given character from the stringbuilder-
+;--------------------------------------------------
+	PUSHAD
+	MOV EAX, index
+	MOV EBX, EAX
+	INC EBX
+	INVOKE StringBuilderDelete, EAX, EBX
+
+	POPAD
+	RET
+StringBuilderDeleteCharAt ENDP
 
 
 ;------------------------------------------
