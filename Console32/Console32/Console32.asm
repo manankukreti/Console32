@@ -398,6 +398,47 @@ StringBuilderDeleteCharAt PROC,
 	RET
 StringBuilderDeleteCharAt ENDP
 
+;----------------------------------------------------------
+StringBuilderReverse PROC
+;Reverses the string
+;----------------------------------------------------------
+	PUSHAD
+
+	INVOKE StringLength, OFFSET stringBuilderBuffer
+
+	MOV EDX, 0
+	MOV ECX, EAX
+	MOV ESI, OFFSET stringBuilderBuffer
+	ADD ESI, EAX
+	DEC ESI
+
+	MOV EDI, OFFSET tempBuffer
+L1:
+	MOV EBX, EAX
+	SUB EBX, ECX
+
+	MOV DH, [ESI]
+	MOV [EDI],DH
+	INC EDI
+	DEC ESI
+	LOOP L1
+
+	CLD
+
+	MOV ESI, OFFSET tempBuffer
+	MOV EDI, OFFSET stringBuilderBuffer
+	MOV ECX, EAX
+	REP MOVSB
+
+	MOV ESI, OFFSET emptyBuffer
+	MOV EDI, OFFSET tempBuffer
+	MOV ECX, BUFFERSIZE
+	REP MOVSB
+
+	POPAD
+	RET
+StringBuilderReverse ENDP
+
 
 ;------------------------------------------
 GetStringBuilder PROC
