@@ -27,5 +27,9 @@ NthIndexOf PROTO,
 	char:BYTE,
 	n:DWORD
 
+StringBuilderInsertAt PROTO,
+	string:PTR BYTE,
+	index:DWORD
+
 StringLength PROTO,
 	pString:PTR BYTE

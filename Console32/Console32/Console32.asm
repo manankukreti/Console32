@@ -7,33 +7,14 @@ substringBuffer BYTE BUFFERSIZE DUP(0),0
 index DWORD 0
 counter DWORD 0
 
+stringBuilderBuffer BYTE BUFFERSIZE DUP(0),0
+tempBuffer BYTE BUFFERSIZE DUP(0),0
+emptyBuffer BYTE BUFFERSIZE DUP(0),0
+
 .code
 Name1 PROC
 
 Name1 ENDP
-;=========================================================
-;This procedure was copied from Kip Irvine's Irvine32
-;library. It is not oficially part of the Console32 
-;library. It is only here to eliminate dependencies.
-;=========================================================
-;---------------------------------------------------------
-StringLength PROC USES edi,		;Str_Length
-	pString:PTR BYTE	; pointer to string
-;
-; Return the length of a null-terminated string.
-; Receives: pString - pointer to a string
-; Returns: EAX = string length
-;---------------------------------------------------------
-	mov edi,pString
-	mov eax,0     	                ; character count
-L1:
-	cmp BYTE PTR [edi],0	      ; end of string?
-	je  L2	                     ; yes: quit
-	inc edi	                     ; no: point to next
-	inc eax	                     ; add 1 to count
-	jmp L1
-L2: ret
-StringLength ENDP
 
 ;============================================
 ;The following proceedures are those that
@@ -167,6 +148,10 @@ L1:
 	INC index
 	INC ESI
 	LOOP L1
+
+	COMMENT!
+
+	!
 	MOV EAX, -1
 	JMP return
 returngood:
@@ -267,4 +252,98 @@ endL:
 	POP EBX
 	RET
 NthIndexOf ENDP
+
+;--------------------------------------------
+StringBuilderInsertAt PROC,
+	string:PTR BYTE,
+	index:DWORD
+;inserts a string into a stringbuilder at index i
+;--------------------------------------------
+
+	INVOKE StringLength, string
+	MOV EBX, EAX
+	INVOKE StringLength, OFFSET stringBuilderBuffer
+	
+	CLD
+
+	CMP EAX, 0
+	JNE insert
+
+	MOV ESI, string
+	MOV EDI, OFFSET stringBuilderBuffer
+	MOV ECX, EBX
+	REP MOVSB
+
+	JMP return
+	
+insert:
+	
+	MOV ESI, OFFSET stringBuilderBuffer
+	MOV EDI, OFFSET tempBuffer
+	MOV ECX, index
+	REP MOVSB
+
+	MOV ESI, string
+	MOV ECX, EBX
+	REP MOVSB
+
+	MOV ESI, OFFSET stringBuilderBuffer
+	MOV EDI, OFFSET tempBuffer
+	ADD ESI, index
+	ADD EDI, index
+	ADD EDI, EBX
+	MOV ECX, BUFFERSIZE
+	SUB ECX, index
+	SUB ECX, EBX
+	REP MOVSB
+
+	MOV ESI, OFFSET tempBuffer
+	MOV EDI, OFFSET stringBuilderBuffer
+	MOV ECX, BUFFERSIZE
+	REP MOVSB
+
+	MOV ESI, OFFSET emptyBuffer
+	MOV EDI, OFFSET tempBuffer
+	MOV ECX, BUFFERSIZE
+	REP MOVSB
+
+return:
+	RET
+StringBuilderInsertAt ENDP
+
+;------------------------------------------
+GetStringBuilder PROC
+;Returns the address of the string in EDX
+;------------------------------------------
+	MOV EDX, OFFSET stringBuilderBuffer
+	RET
+GetSringBuilder ENDP
+
+
+
+;=========================================================
+;This procedure was copied from Kip Irvine's Irvine32
+;library. It is not oficially part of the Console32 
+;library. It is only here to eliminate dependencies.
+;=========================================================
+;---------------------------------------------------------
+StringLength PROC USES edi,		;Str_Length
+	pString:PTR BYTE	; pointer to string
+;
+; Return the length of a null-terminated string.
+; Receives: pString - pointer to a string
+; Returns: EAX = string length
+;---------------------------------------------------------
+	mov edi,pString
+	mov eax,0     	                ; character count
+L1:
+	cmp BYTE PTR [edi],0	      ; end of string?
+	je  L2	                     ; yes: quit
+	inc edi	                     ; no: point to next
+	inc eax	                     ; add 1 to count
+	jmp L1
+L2: ret
+StringLength ENDP
+
+
 END Name1
