@@ -41,6 +41,8 @@ StringBuilderAppend PROTO,
 StringBuilderDeleteCharAt PROTO, 
 	index:DWORD
 
+InitializeTokenizer PROTO,
+	string:PTR BYTE
 
 StringLength PROTO,
 	pString:PTR BYTE
