@@ -44,5 +44,8 @@ StringBuilderDeleteCharAt PROTO,
 InitializeTokenizer PROTO,
 	string:PTR BYTE
 
+TokenizerSetDelimeter PROTO,
+	newDelim:BYTE
+
 StringLength PROTO,
 	pString:PTR BYTE

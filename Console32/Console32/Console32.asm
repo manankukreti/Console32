@@ -546,6 +546,16 @@ GetToken PROC
 	RET
 GetToken ENDP
 
+;----------------------------------
+TokenizerSetDelimeter PROC,
+	newDelim:BYTE
+;Sets the delimeter of the tokenizer
+;------------------------------------
+	
+	MOVZX EAX, newDelim
+	MOV delim, AL
+	RET
+TokenizerSetDelimeter ENDP
 
 ;=========================================================
 ;This procedure was copied from Kip Irvine's Irvine32
