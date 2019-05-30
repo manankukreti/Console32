@@ -11,6 +11,8 @@ stringBuilderBuffer BYTE BUFFERSIZE DUP(0),0
 tempBuffer BYTE BUFFERSIZE DUP(0),0
 emptyBuffer BYTE BUFFERSIZE DUP(0),0
 
+tokenizerBuffer BYTE BUFFERSIZE DUP(0),0
+
 .code
 Name1 PROC
 
@@ -448,7 +450,27 @@ GetStringBuilder PROC
 	RET
 GetStringBuilder ENDP
 
+InitializeTokenizer PROC,
+	string:PTR BYTE
+	PUSH ESI
+	PUSH EDI
+	PUSH ECX
+	PUSH EAX
 
+	CLD
+	INVOKE StringLength, string
+	MOV ECX, EAX
+
+	MOV ESI, string
+	MOV EDI,  OFFSET tokenizerBuffer
+	REP MOVSB
+	POP EAX
+
+	POP ECX
+	POP EDI
+	POP ESI
+	RET
+InitializeTokenizer ENDP
 
 ;=========================================================
 ;This procedure was copied from Kip Irvine's Irvine32
