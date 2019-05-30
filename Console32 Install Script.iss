@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Console32"
-#define MyAppVersion "2.0"
+#define MyAppVersion "3.0"
 #define MyAppPublisher "Johnny Console Software"
 #define MyAppURL "https://johnnyconsole.net/console32"
 
