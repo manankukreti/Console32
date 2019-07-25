@@ -4,9 +4,8 @@
 Microsoft Assembly Library for x86 Processors based on Kip Irvine's Irvine32 Library
 
 ### Downloading and Installing Console32
-Simply download the repository as a ZIP file.
-
-To install, unzip the files to a file such as ``` C:/Console32```
+Download the Console32 Installer.exe file and run it.
+You can also download the repository as a ZIP file and unzip the files to a file such as ``` C:/Console32```, but that's a little harder.
 
 ### Using Console32
 In Visual Studio, after setting up yout project, go into properties, choose Linker -> General
