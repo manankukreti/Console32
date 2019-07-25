@@ -19,9 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <MASM Include="libtest.asm" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Console32.inc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
