@@ -48,4 +48,40 @@ NthIndexOf PROTO,
 	char:BYTE,
 	n:DWORD
 
+StringBuilderInsertAt PROTO,
+	string:PTR BYTE,
+	index:DWORD
+
+StringBuilderDelete PROTO,
+	start:DWORD, 
+	endI:DWORD
+	
+StringBuilderAppend PROTO, 
+	string:PTR BYTE
+
+StringBuilderDeleteCharAt PROTO, 
+	index:DWORD
+
+StringBuilderReverse PROTO
+
+GetStringBuilder PROTO
+
+EmptyStringBuilder PROTO
+
+
+InitializeTokenizer PROTO,
+	string:PTR BYTE
+
+TokenizerSetDelimeter PROTO,
+	newDelim:BYTE
+
+TokenizerNextToken PROTO
+
+EmptyTokenizer PROTO
+
+GetToken PROTO
+
+StringLength PROTO,
+	pString:PTR BYTE
+
 ```
