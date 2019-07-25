@@ -11,6 +11,11 @@ stringBuilderBuffer BYTE BUFFERSIZE DUP(0),0
 tempBuffer BYTE BUFFERSIZE DUP(0),0
 emptyBuffer BYTE BUFFERSIZE DUP(0),0
 
+tokenizerBuffer BYTE BUFFERSIZE DUP(0),0
+tokenBuffer BYTE BUFFERSIZE DUP(0),0
+currentI DWORD 0
+delim BYTE ' '
+
 .code
 Name1 PROC
 
@@ -448,7 +453,109 @@ GetStringBuilder PROC
 	RET
 GetStringBuilder ENDP
 
+;-----------------------------------------------
+EmptyStringBuilder PROC USES ECX ESI EDI
+;Empties the StringBuilder
+;-----------------------------------------------
+	MOV ECX, BUFFERSIZE
+	MOV EDI, OFFSET stringBuilderBuffer
+	MOV ESI, OFFSET emptyBuffer
+	REP MOVSB
+	RET
+EmptyStringBuilder ENDP
 
+;-----------------------------------------------
+InitializeTokenizer PROC,
+	string:PTR BYTE
+;Initializes the StringTokenizer with a string
+;-----------------------------------------------
+	PUSH ESI
+	PUSH EDI
+	PUSH ECX
+	PUSH EAX
+
+	CLD
+	INVOKE StringLength, string
+	MOV ECX, EAX
+
+	MOV ESI, string
+	MOV EDI,  OFFSET tokenizerBuffer
+	REP MOVSB
+
+
+	MOV currentI, 0
+	POP EAX
+	POP ECX
+	POP EDI
+	POP ESI
+	RET
+InitializeTokenizer ENDP
+
+;---------------------------------------------
+TokenizerNextToken PROC USES ESI EDI ECX EAX EBX
+;Finds the next token in the tokenizer
+;---------------------------------------------	
+	MOV ECX, BUFFERSIZE
+	MOV EDI, OFFSET tokenBuffer
+	MOV ESI, OFFSET emptyBuffer
+	REP MOVSB
+	
+	INVOKE StringLength, OFFSET tokenizerBuffer
+	
+	MOV EBX, 0
+	MOV BL, delim
+	
+	MOV ESI, OFFSET tokenizerBuffer
+	MOV EDI, OFFSET tokenBuffer
+	
+	ADD ESI, currentI
+	MOV ECX, EAX
+
+L1:
+	CMP [ESI], BL
+	JE done
+	CMP [ESI], BH
+	JE nothingtodo
+	MOVSB
+	INC currentI
+	LOOP L1
+done:
+	INC currentI
+nothingtodo:
+	RET
+TokenizerNextToken ENDP
+
+
+;-----------------------------------------------
+EmptyTokenizer PROC USES ECX ESI EDI
+;Empties the tokenizer
+;-----------------------------------------------
+	MOV ECX, BUFFERSIZE
+	MOV EDI, OFFSET tokenizerBuffer
+	MOV ESI, OFFSET emptyBuffer
+	REP MOVSB
+	RET
+EmptyTokenizer ENDP
+
+
+;-------------------------------------------------
+GetToken PROC
+;Returns the next token in EDX
+;------------------------------------------------
+	MOV EDX, OFFSET tokenBuffer
+	RET
+GetToken ENDP
+
+;----------------------------------
+TokenizerSetDelimeter PROC,
+	newDelim:BYTE
+;Sets the delimeter of the tokenizer
+;------------------------------------
+	
+	MOVZX EAX, newDelim
+	MOV delim, AL
+	RET
+TokenizerSetDelimeter ENDP
 
 ;=========================================================
 ;This procedure was copied from Kip Irvine's Irvine32

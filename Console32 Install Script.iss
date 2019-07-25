@@ -2,9 +2,9 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Console32"
-#define MyAppVersion "2.0"
+#define MyAppVersion "4.0"
 #define MyAppPublisher "Johnny Console Software"
-#define MyAppURL "https://johnnyconsole.net/console32"
+#define MyAppURL "https://johnnyconsole.net/projects/console32"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
@@ -24,7 +24,7 @@ DisableProgramGroupPage=yes
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
-OutputDir=C:\Users\Students\Desktop\console32
+OutputDir=C:\Users\Students\source\repos\TechyScientist\Console32
 OutputBaseFilename=Console32 Installer
 Compression=lzma
 SolidCompression=yes
@@ -34,7 +34,7 @@ WizardStyle=modern
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "C:\Users\Students\Desktop\console32\Console32\Console32\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\Students\source\repos\TechyScientist\Console32\Console32\Console32\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
