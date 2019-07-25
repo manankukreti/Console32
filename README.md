@@ -8,10 +8,12 @@ Download the Console32 Installer.exe file and run it.
 You can also download the repository as a ZIP file and unzip the files to a file such as ``` C:/Console32```, but that's a little harder.
 
 ### Using Console32
-In Visual Studio, after setting up yout project, go into properties, choose Linker -> General
-Add C:/Console to Additional Library Directories. Choose Linker -> Input, click the down arrow 
-and add console32.lib to the top box. Choose Microsoft Macro Assembler -> General and add
-C:/Console32 to Include Paths.
+In Visual Studio, after setting up yout project, go into properties and:
+
+Choose Linker -> General, Add C:/Console to Additional Library Directories. 
+Choose Linker -> Input, click the down arrow and add console32.lib to the top box.
+Choose Linker -> System, click the down arrow and select Console from the Subsystem menu.
+Choose Microsoft Macro Assembler -> General and add C:/Console32 to Include Paths.
 
 In your assembly source file (.asm), place the line
 ```INCLUDE Console32.lib``` before your .data directive.
