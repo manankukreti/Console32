@@ -21,7 +21,7 @@ In your assembly source file (.asm), place the line
 ### Procedre Use
 You can use the procedures using the INVOKE directive.
 
-##List of Procedure Prototypes
+## List of Procedure Prototypes
 ```
 Substring PROTO,
 	string:PTR BYTE,
